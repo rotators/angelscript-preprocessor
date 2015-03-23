@@ -429,7 +429,7 @@ Preprocessor::LLITR Preprocessor::ExpandDefine( LLITR itr, LLITR end, LexemList&
 
     if( define_entry->second.Arguments.size() != arguments.size() )
     {
-        PrintErrorMessage( "Didn't supply right number of arguments to define '" + itr_begin->Value + "'." );
+        PrintErrorMessage( "Didn't supply right number of arguments to define '" + define_entry->first + "'." );
         return end;
     }
 
