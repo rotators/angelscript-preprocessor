@@ -1,5 +1,6 @@
 /fosrc*.sh
 
 *.o
-/examples/pragma
+/examples/dependencies
 /examples/minipreprocessor
+/examples/pragma
