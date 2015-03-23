@@ -1,8 +1,5 @@
-*
-!.gitignore
-!*/
-!*.md
-!Makefile
-!*.cpp
-!*.h
-!.as
+/fosrc*.sh
+
+*.o
+/examples/pragma
+/examples/minipreprocessor
