@@ -1,5 +1,3 @@
-/fosrc*.sh
-
 *.o
 /examples/dependencies
 /examples/minipreprocessor
