@@ -1,3 +1,8 @@
+#include <cstdlib>
+#include <string>
+#include <vector>
+
+
 #include "../preprocessor.h"
 
 int main( int argc, char** argv )

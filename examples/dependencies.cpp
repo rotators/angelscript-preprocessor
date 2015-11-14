@@ -1,3 +1,7 @@
+#include <cstdlib>
+#include <string>
+#include <vector>
+
 #include "../preprocessor.h"
 
 #define UTILS_FORMATPATH
@@ -5,11 +9,15 @@
 
 int main( int argc, char** argv )
 {
-    const char* file = "script/dir2/file2.as";
+    if( argc != 2 )
+    {
+        fprintf( stderr, "Usage: dependencies [script_file]\n\n" );
+        exit( EXIT_FAILURE );
+    }
 
     Preprocessor::StringOutStream result, errors;
 
-    int errors_count = Preprocessor::Preprocess( file, result, &errors );
+    int errors_count = Preprocessor::Preprocess( argv[1], result, &errors );
     if( errors.String != "" )
     {
         while( errors.String[errors.String.length()-1] == '\n' )
@@ -20,7 +28,7 @@ int main( int argc, char** argv )
 
     if( errors_count )
     {
-        fprintf( stderr, "Unable to preprocess file <%s>\n",  file );
+        fprintf( stderr, "Unable to preprocess file <%s>\n",  argv[1] );
 
         return( EXIT_FAILURE );
     }

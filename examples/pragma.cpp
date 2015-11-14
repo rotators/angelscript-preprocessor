@@ -1,4 +1,8 @@
+#include <cstdlib>
 #include <set>
+#include <string>
+#include <vector>
+
 
 #include "../preprocessor.h"
 
@@ -40,11 +44,15 @@ public:
 
 int main( int argc, char** argv )
 {
-    const char* file = "script/pragma.as";
+    if( argc != 2 )
+    {
+        fprintf( stderr, "Usage: pragma [script_file]\n\n" );
+        exit( EXIT_FAILURE );
+    }
 
     Preprocessor::StringOutStream result, errors;
     Preprocessor::SetPragmaCallback( new MyPragmaCallback() );
-    int errors_count = Preprocessor::Preprocess( file, result, &errors );
+    int errors_count = Preprocessor::Preprocess( argv[1], result, &errors );
 
     if( errors.String != "" )
     {
@@ -56,7 +64,7 @@ int main( int argc, char** argv )
 
     if( errors_count )
     {
-        fprintf( stderr, "Unable to preprocess file <%s>\n",  file );
+        fprintf( stderr, "Unable to preprocess file <%s>\n",  argv[1] );
 
         return( EXIT_FAILURE );
     }

@@ -1,4 +1,1 @@
-*.o
-/examples/dependencies
-/examples/minipreprocessor
-/examples/pragma
+build/
