@@ -13,9 +13,10 @@ int main( int argc, char** argv )
         exit( EXIT_FAILURE );
     }
 
+    Preprocessor preprocessor;
     Preprocessor::StringOutStream result, errors;
 
-    int errors_count = Preprocessor::Preprocess( argv[1], result, &errors );
+    int errors_count = preprocessor.Preprocess( argv[1], result, &errors );
     if( errors.String != "" )
     {
         while( errors.String[errors.String.length()-1] == '\n' )

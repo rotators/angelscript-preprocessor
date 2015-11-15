@@ -216,61 +216,62 @@ struct Preprocessor
     void        PrintMessage( const std::string& msg );
     void        PrintWarningMessage( const std::string& warnmsg );
     void        PrintErrorMessage( const std::string& errmsg );
-    std::string RemoveQuotes( const std::string& in );
+
     std::string PrependRootPath( const std::string& filename );
 
-    std::string IntToString( int i );
-    bool        SearchString( std::string str, char in );
-    bool        IsHex( char in );
-    bool        IsIdentifierStart( char in );
-    bool        IsIdentifierBody( char in );
-    bool        IsNumber( char in );
-    bool        IsTrivial( char in );
+    static std::string RemoveQuotes( const std::string& in );
+    static std::string IntToString( int i );
+    static bool        SearchString( std::string str, char in );
+    static bool        IsHex( char in );
+    static bool        IsIdentifierStart( char in );
+    static bool        IsIdentifierBody( char in );
+    static bool        IsNumber( char in );
+    static bool        IsTrivial( char in );
 
-    char*       ParseBlockComment( char* start, char* end, Lexem& out );
-    char*       ParseCharacterLiteral( char* start, char* end, Lexem& out );
-    void        ParseDefine( DefineTable& define_table, LexemList& def_lexems );
-    LLITR       ParseDefineArguments( LLITR itr, LLITR end, LexemList& lexems, std::vector<LexemList>& args );
-    char*       ParseFloatingPoint( char* start, char* end, Lexem& out );
-    void        ParseIf( LexemList& directive, std::string& name_out );
-    LLITR       ParseIfDef( LLITR itr, LLITR end );
-    char*       ParseHexConstant( char* start, char* end, Lexem& out );
-    char*       ParseIdentifier( char* start, char* end, Lexem& out );
-    char*       ParseLexem( char* start, char* end, Lexem& out );
-    char*       ParseLineComment( char* start, char* end, Lexem& out );
-    char*       ParseNumber( char* start, char* end, Lexem& out );
-    LLITR       ParsePreprocessor( LexemList& lexems, LLITR itr, LLITR end );
-    char*       ParseStringLiteral( char* start, char* end, char quote, Lexem& out );
-    LLITR       ParseStatement( LLITR itr, LLITR end, LexemList& dest );
+    static char*       ParseBlockComment( char* start, char* end, Lexem& out );
+    static char*       ParseCharacterLiteral( char* start, char* end, Lexem& out );
+           void        ParseDefine( DefineTable& define_table, LexemList& def_lexems );
+           LLITR       ParseDefineArguments( LLITR itr, LLITR end, LexemList& lexems, std::vector<LexemList>& args );
+    static char*       ParseFloatingPoint( char* start, char* end, Lexem& out );
+           void        ParseIf( LexemList& directive, std::string& name_out );
+           LLITR       ParseIfDef( LLITR itr, LLITR end );
+    static char*       ParseHexConstant( char* start, char* end, Lexem& out );
+    static char*       ParseIdentifier( char* start, char* end, Lexem& out );
+    static char*       ParseLexem( char* start, char* end, Lexem& out );
+    static char*       ParseLineComment( char* start, char* end, Lexem& out );
+    static char*       ParseNumber( char* start, char* end, Lexem& out );
+    static LLITR       ParsePreprocessor( LexemList& lexems, LLITR itr, LLITR end );
+    static char*       ParseStringLiteral( char* start, char* end, char quote, Lexem& out );
+           LLITR       ParseStatement( LLITR itr, LLITR end, LexemList& dest );
 
-    int         Lex( char* begin, char* end, std::list<Lexem>& results );
-    LLITR       ExpandDefine( LLITR itr, LLITR ent, LexemList& lexems, DefineTable& define_table );
-    bool        ConvertExpression( LexemList& expression, LexemList& output );
-    int         EvaluateConvertedExpression( DefineTable& define_table, LexemList& expr );
-    bool        EvaluateExpression( DefineTable& define_table, LexemList& directive );
-    std::string AddPaths( const std::string& first, const std::string& second );
-    void        ParsePragma( LexemList& args );
-    void        ParseTextLine( LexemList& directive, std::string& message );
-    void        SetLineMacro( DefineTable& define_table, unsigned int line );
-    void        SetFileMacro( DefineTable& define_table, const std::string& file );
-    void        RecursivePreprocess( std::string filename, FileLoader& file_source, LexemList& lexems, DefineTable& define_table );
-    void        PrintLexemList( LexemList& out, OutStream& destination );
+    static int         Lex( char* begin, char* end, std::list<Lexem>& results );
+           LLITR       ExpandDefine( LLITR itr, LLITR ent, LexemList& lexems, DefineTable& define_table );
+           bool        ConvertExpression( LexemList& expression, LexemList& output );
+           int         EvaluateConvertedExpression( DefineTable& define_table, LexemList& expr );
+           bool        EvaluateExpression( DefineTable& define_table, LexemList& directive );
+    static std::string AddPaths( const std::string& first, const std::string& second );
+           void        ParsePragma( LexemList& args );
+    static void        ParseTextLine( LexemList& directive, std::string& message );
+    static void        SetLineMacro( DefineTable& define_table, unsigned int line );
+    static void        SetFileMacro( DefineTable& define_table, const std::string& file );
+           void        RecursivePreprocess( std::string filename, FileLoader& file_source, LexemList& lexems, DefineTable& define_table );
+    static void        PrintLexemList( LexemList& out, OutStream& destination );
 
     /************************************************************************/
     /* Expressions                                                          */
     /************************************************************************/
 
-    void PreprocessLexem( LLITR it, LexemList& lexems );
-    bool IsOperator( const Lexem& lexem );
-    bool IsIdentifier( const Lexem& lexem );
-    bool IsLeft( const Lexem& lexem );
-    bool IsRight( const Lexem& lexem );
-    int  OperPrecedence( const Lexem& lexem );
-    bool OperLeftAssoc( const Lexem& lexem );
+    static void PreprocessLexem( LLITR it, LexemList& lexems );
+    static bool IsOperator( const Lexem& lexem );
+    static bool IsIdentifier( const Lexem& lexem );
+    static bool IsLeft( const Lexem& lexem );
+    static bool IsRight( const Lexem& lexem );
+    static int  OperPrecedence( const Lexem& lexem );
+    static bool OperLeftAssoc( const Lexem& lexem );
 
-    LineNumberTranslator*       GetLineNumberTranslator();
-    std::string                 ResolveOriginalFile( unsigned int line_number, LineNumberTranslator* lnt = NULL );
-    unsigned int                ResolveOriginalLine( unsigned int line_number, LineNumberTranslator* lnt = NULL );
+    LineNumberTranslator*     GetLineNumberTranslator();
+    std::string               ResolveOriginalFile( unsigned int line_number, LineNumberTranslator* lnt = NULL );
+    unsigned int              ResolveOriginalLine( unsigned int line_number, LineNumberTranslator* lnt = NULL );
     std::vector<std::string>& GetFileDependencies();
     std::vector<std::string>& GetFilesPreprocessed();
     std::vector<std::string>& GetParsedPragmas();

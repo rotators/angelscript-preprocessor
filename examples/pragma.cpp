@@ -16,7 +16,7 @@ public:
     }
 };
 
-class MyPragmaCallback : public Preprocessor::PragmaCallback
+class MyPragmaCallback : public Preprocessor::Pragma::Callback
 {
 private:
     std::set<std::string> alreadyProcessed;
@@ -28,7 +28,7 @@ public:
         dummy = new DummyPragma();
     }
 
-    void CallPragma( const std::string& name, const Preprocessor::PragmaInstance& instance )
+    void CallPragma( const std::string& name, const Preprocessor::Pragma::Instance& instance )
     {
         if( alreadyProcessed.count( name + instance.Text ))
             return;
@@ -50,9 +50,10 @@ int main( int argc, char** argv )
         exit( EXIT_FAILURE );
     }
 
+    Preprocessor preprocessor;
     Preprocessor::StringOutStream result, errors;
-    Preprocessor::SetPragmaCallback( new MyPragmaCallback() );
-    int errors_count = Preprocessor::Preprocess( argv[1], result, &errors );
+    preprocessor.SetPragmaCallback( new MyPragmaCallback() );
+    int errors_count = preprocessor.Preprocess( argv[1], result, &errors );
 
     if( errors.String != "" )
     {
