@@ -68,7 +68,7 @@ struct Preprocessor
         {
             return operator<<( std::string( in ) );
         }
-        template< typename T >
+        template<typename T>
         OutStream& operator<<( const T& in )
         {
             std::stringstream strstr;
@@ -104,7 +104,7 @@ struct Preprocessor
             unsigned int Offset;
         };
 
-        std::vector< Entry > lines;
+        std::vector<Entry> lines;
 
         Entry& Search( unsigned int linenumber );
         void   AddLineRange( const std::string& file, unsigned int start_line, unsigned int offset );
@@ -137,7 +137,7 @@ struct Preprocessor
         LexemType   Type;
     };
 
-    typedef std::list< Lexem >  LexemList;
+    typedef std::list<Lexem>    LexemList;
     typedef LexemList::iterator LLITR;
 
     static const std::string Numbers;
@@ -155,14 +155,14 @@ struct Preprocessor
     struct FileLoader
     {
         virtual ~FileLoader() {}
-        virtual bool LoadFile( const std::string& dir, const std::string& file_name, std::vector< char >& data );
+        virtual bool LoadFile( const std::string& dir, const std::string& file_name, std::vector<char>& data );
     };
 
     /************************************************************************/
     /* Define table                                                         */
     /************************************************************************/
 
-    typedef std::map< std::string, int > ArgSet;
+    typedef std::map<std::string,int> ArgSet;
 
     struct DefineEntry
     {
@@ -170,7 +170,7 @@ struct Preprocessor
         ArgSet    Arguments;
     };
 
-    typedef std::map< std::string, DefineEntry > DefineTable;
+    typedef std::map<std::string,DefineEntry> DefineTable;
 
     DefineTable CustomDefines;
 
@@ -230,7 +230,7 @@ struct Preprocessor
     char*       ParseBlockComment( char* start, char* end, Lexem& out );
     char*       ParseCharacterLiteral( char* start, char* end, Lexem& out );
     void        ParseDefine( DefineTable& define_table, LexemList& def_lexems );
-    LLITR       ParseDefineArguments( LLITR itr, LLITR end, LexemList& lexems, std::vector< LexemList >& args );
+    LLITR       ParseDefineArguments( LLITR itr, LLITR end, LexemList& lexems, std::vector<LexemList>& args );
     char*       ParseFloatingPoint( char* start, char* end, Lexem& out );
     void        ParseIf( LexemList& directive, std::string& name_out );
     LLITR       ParseIfDef( LLITR itr, LLITR end );
@@ -243,7 +243,7 @@ struct Preprocessor
     char*       ParseStringLiteral( char* start, char* end, char quote, Lexem& out );
     LLITR       ParseStatement( LLITR itr, LLITR end, LexemList& dest );
 
-    int         Lex( char* begin, char* end, std::list< Lexem >& results );
+    int         Lex( char* begin, char* end, std::list<Lexem>& results );
     LLITR       ExpandDefine( LLITR itr, LLITR ent, LexemList& lexems, DefineTable& define_table );
     bool        ConvertExpression( LexemList& expression, LexemList& output );
     int         EvaluateConvertedExpression( DefineTable& define_table, LexemList& expr );
@@ -271,9 +271,9 @@ struct Preprocessor
     LineNumberTranslator*       GetLineNumberTranslator();
     std::string                 ResolveOriginalFile( unsigned int line_number, LineNumberTranslator* lnt = NULL );
     unsigned int                ResolveOriginalLine( unsigned int line_number, LineNumberTranslator* lnt = NULL );
-    std::vector< std::string >& GetFileDependencies();
-    std::vector< std::string >& GetFilesPreprocessed();
-    std::vector< std::string >& GetParsedPragmas();
+    std::vector<std::string>& GetFileDependencies();
+    std::vector<std::string>& GetFilesPreprocessed();
+    std::vector<std::string>& GetParsedPragmas();
 
 
     Pragma::Callback* CurPragmaCallback = NULL;
@@ -285,18 +285,18 @@ struct Preprocessor
     /*                                                                      */
     /************************************************************************/
 
-    OutStream*                 Errors;
-    unsigned int               ErrorsCount;
-    LineNumberTranslator*      LNT = NULL;
-    std::string                RootFile;
-    std::string                RootPath;
-    std::string                CurrentFile;
-    unsigned int               CurrentLine;
-    unsigned int               LinesThisFile;
-    bool                       SkipPragmas;
-    std::vector< std::string > FileDependencies;
-    std::vector< std::string > FilesPreprocessed;
-    std::vector< std::string > Pragmas;
+    OutStream*               Errors;
+    unsigned int             ErrorsCount;
+    LineNumberTranslator*    LNT = NULL;
+    std::string              RootFile;
+    std::string              RootPath;
+    std::string              CurrentFile;
+    unsigned int             CurrentLine;
+    unsigned int             LinesThisFile;
+    bool                     SkipPragmas;
+    std::vector<std::string> FileDependencies;
+    std::vector<std::string> FilesPreprocessed;
+    std::vector<std::string> Pragmas;
 };
 
 #endif // PREPROCESSOR_H
