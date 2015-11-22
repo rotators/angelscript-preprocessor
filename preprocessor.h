@@ -48,6 +48,10 @@
 
 #define PREPROCESSOR_VERSION_STRING    "0.7"
 
+#ifndef UNUSED_VAR
+ #define UNUSED_VAR(x) (void)(x)
+#endif
+
 struct Preprocessor
 {
     /************************************************************************/
@@ -57,7 +61,7 @@ struct Preprocessor
     struct OutStream
     {
         virtual ~OutStream() {}
-        virtual void Write( const char* str, size_t len ) {}
+        virtual void Write( const char* str, size_t len ) { UNUSED_VAR(str); UNUSED_VAR(len); }
 
         OutStream& operator<<( const std::string& in )
         {

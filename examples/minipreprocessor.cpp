@@ -22,7 +22,7 @@ int main( int argc, char** argv )
         while( errors.String[errors.String.length()-1] == '\n' )
             errors.String.pop_back();
 
-        fprintf( stderr, "Preprocessor message <%s>\n", errors.String.c_str() );
+        fprintf( stderr, "%s\n", errors.String.c_str() );
     }
 
     if( errors_count )
