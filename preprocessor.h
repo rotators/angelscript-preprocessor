@@ -96,6 +96,17 @@ struct Preprocessor
     };
 
     /************************************************************************/
+    /* Include file translator                                               */
+    /************************************************************************/
+
+    struct IncludeFileTranslator
+    {
+        virtual ~IncludeFileTranslator() {};
+        virtual void Call( std::string& file ) = 0;
+    };
+    IncludeFileTranslator* IncludeTranslator = NULL;
+
+    /************************************************************************/
     /* Line number translator                                               */
     /************************************************************************/
 

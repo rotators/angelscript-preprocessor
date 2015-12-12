@@ -856,6 +856,8 @@ void Preprocessor::RecursivePreprocess( std::string filename, FileLoader& file_s
                 ParseIf( directive, file_name );
 
                 std::string file_name_ = RemoveQuotes( file_name );
+                if( IncludeTranslator )
+                    IncludeTranslator->Call( file_name_ );
                 if( std::find( FileDependencies.begin(), FileDependencies.end(), file_name_ ) == FileDependencies.end() )
                     FileDependencies.push_back( file_name_ );
 
