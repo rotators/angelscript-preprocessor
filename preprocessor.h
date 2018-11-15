@@ -104,7 +104,7 @@ struct Preprocessor
         virtual ~IncludeFileTranslator() {};
         virtual void Call( std::string& file ) = 0;
     };
-    IncludeFileTranslator* IncludeTranslator = NULL;
+    IncludeFileTranslator* IncludeTranslator;
 
     /************************************************************************/
     /* Line number translator                                               */
@@ -141,7 +141,7 @@ struct Preprocessor
             PREPROCESSOR,           // Begins with #
             NEWLINE,
             WHITESPACE,
-            IGNORE,
+            IGNORED,
             COMMENT,
             STRING,
             NUMBER,
@@ -292,7 +292,7 @@ struct Preprocessor
     std::vector<std::string>& GetParsedPragmas();
 
 
-    Pragma::Callback* CurPragmaCallback = NULL;
+    Pragma::Callback* CurPragmaCallback;
 
     void SetPragmaCallback( Pragma::Callback* callback );
     void CallPragma( const std::string& name, std::string pragma );
@@ -303,7 +303,7 @@ struct Preprocessor
 
     OutStream*               Errors;
     unsigned int             ErrorsCount;
-    LineNumberTranslator*    LNT = NULL;
+    LineNumberTranslator*    LNT;
     std::string              RootFile;
     std::string              RootPath;
     std::string              CurrentFile;

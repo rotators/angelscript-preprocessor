@@ -36,16 +36,17 @@
  * http://github.com/rotators/angelscript-preprocessor/
  */
 
-#include "preprocessor.h"
-#include <list>
-#include <map>
-#include <string>
-#include <vector>
-#include <set>
+#include <algorithm>
 #include <fstream>
 #include <iostream>
+#include <list>
+#include <map>
+#include <set>
 #include <sstream>
-#include <algorithm>
+#include <string>
+#include <vector>
+
+#include "preprocessor.h"
 
 const std::string Preprocessor::Numbers         = "0123456789";
 const std::string Preprocessor::IdentifierStart = "_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -53,6 +54,7 @@ const std::string Preprocessor::IdentifierBody  = "_abcdefghijklmnopqrstuvwxyzAB
 const std::string Preprocessor::HexNumbers      = "0123456789abcdefABCDEF";
 
 const std::string Preprocessor::Trivials        = ",;\n\r\t [{(]})";
+
 const Preprocessor::Lexem::LexemType Preprocessor::TrivialTypes[12]  =
 {
     Preprocessor::Lexem::COMMA,
@@ -72,10 +74,12 @@ const Preprocessor::Lexem::LexemType Preprocessor::TrivialTypes[12]  =
 Preprocessor::Preprocessor() :
     Errors(NULL),
     ErrorsCount(0),
+    IncludeTranslator(NULL),
     LNT(NULL),
     CurrentLine(0),
     LinesThisFile(0),
-    SkipPragmas(false)
+    SkipPragmas(false),
+    CurPragmaCallback(NULL)
 {
 }
 
@@ -402,7 +406,7 @@ void Preprocessor::ParseDefine( DefineTable& define_table, LexemList& def_lexems
         LLITR dlb = def_lexems.begin();
         while( dlb != def_lexems.end() )
         {
-            if( dlb->Value == "##" && dlb->Type == Lexem::IGNORE )
+            if( dlb->Value == "##" && dlb->Type == Lexem::IGNORED )
                 dlb->Value = "";
             dlb = ExpandDefine( dlb, def_lexems.end(), def_lexems, define_table );
         }
@@ -1411,7 +1415,7 @@ char* Preprocessor::ParseLexem( char* start, char* end, Lexem& out )
         if( *start == '#' )
         {
             out.Value = "##";
-            out.Type = Lexem::IGNORE;
+            out.Type = Lexem::IGNORED;
             return ( ++start );
         }
         while( start != end && ( *start == ' ' || *start == '\t' ) )
@@ -1448,7 +1452,7 @@ char* Preprocessor::ParseLexem( char* start, char* end, Lexem& out )
     }
 
     out.Value = std::string( 1, current_char );
-    out.Type = Lexem::IGNORE;
+    out.Type = Lexem::IGNORED;
     return ++start;
 }
 
