@@ -72,14 +72,14 @@ const Preprocessor::Lexem::LexemType Preprocessor::TrivialTypes[12]  =
 };
 
 Preprocessor::Preprocessor() :
+    IncludeTranslator(NULL),
+    CurPragmaCallback(NULL),
     Errors(NULL),
     ErrorsCount(0),
-    IncludeTranslator(NULL),
     LNT(NULL),
     CurrentLine(0),
     LinesThisFile(0),
-    SkipPragmas(false),
-    CurPragmaCallback(NULL)
+    SkipPragmas(false)
 {
 }
 
