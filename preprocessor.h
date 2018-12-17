@@ -250,6 +250,7 @@ struct Preprocessor
     static char*       ParseFloatingPoint( char* start, char* end, Lexem& out );
            void        ParseIf( LexemList& directive, std::string& name_out );
            LLITR       ParseIfDef( LLITR itr, LLITR end );
+            void       ParseUndef( LexemList& directive, DefineTable& define_table );
     static char*       ParseHexConstant( char* start, char* end, Lexem& out );
     static char*       ParseIdentifier( char* start, char* end, Lexem& out );
     static char*       ParseLexem( char* start, char* end, Lexem& out );

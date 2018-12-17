@@ -469,6 +469,20 @@ void Preprocessor::ParseIf( LexemList& directive, std::string& name_out )
         PrintErrorMessage( "Too many arguments." );
 }
 
+void Preprocessor::ParseUndef( LexemList& directive, DefineTable& define_table )
+{
+    directive.pop_front();
+
+    if( directive.empty() )
+        PrintErrorMessage( "Undef directive without arguments." );
+    else if( directive.size() > 1 )
+        PrintErrorMessage( "Undef directive with multiple arguments." );
+
+    auto it = define_table.find( directive.begin()->Value );
+    if( it != define_table.end() )
+        define_table.erase( it );
+}
+
 bool Preprocessor::ConvertExpression( LexemList& expression, LexemList& output )
 {
     if( expression.empty() )
@@ -850,6 +864,10 @@ void Preprocessor::RecursivePreprocess( std::string filename, FileLoader& file_s
             else if( value == "#endif" )
             {
                 // ignore
+            }
+            else if (value == "#undef")
+            {
+                ParseUndef( directive, define_table );
             }
             else if( value == "#include" )
             {
