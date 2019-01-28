@@ -980,6 +980,12 @@ void Preprocessor::Define( const std::string& str )
     ParseDefine( CustomDefines, lexems );
 }
 
+void Preprocessor::Define( const std::string& str, const std::string& val )
+{
+	std::string def = str + " " + val;
+	Define(def);
+}
+
 void Preprocessor::Undef( const std::string& str )
 {
     for( DefineTable::iterator it = CustomDefines.begin(), end = CustomDefines.end(); it != end; ++it )

@@ -219,6 +219,7 @@ struct Preprocessor
 
     bool IsDefined( const std::string& str );
     void Define( const std::string& str );
+    void Define( const std::string& str, const std::string& val );
     void Undef( const std::string& str );
     void UndefAll();
 
